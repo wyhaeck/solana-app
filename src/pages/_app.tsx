@@ -2,7 +2,7 @@ import { FC } from "react";
 import Head from "next/head";
 import { AppProps } from "next/dist/shared/lib/router/router";
 import WalletContextProvider from "../contexts/WalletContextProvider";
-import NotificationList from "../components/Notification";
+//  import NotificationList from "../components/Notification";
 import { ToastContainer } from "react-toastify";
 
 require("@solana/wallet-adapter-react-ui/styles.css");
