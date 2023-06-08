@@ -1,6 +1,6 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { FC, useCallback } from "react";
-import { notify } from "../utils/notifications";
+// import { notify } from "../utils/notifications";
 import {
   Keypair,
   SystemProgram,
@@ -26,7 +26,7 @@ export const SendTransaction: FC = () => {
 
   const onClick = useCallback(async () => {
     if (!publicKey) {
-      notify({ type: "error", message: `Wallet not connected!` });
+      // notify({ type: "error", message: `Wallet not connected!` });
       console.log("error", `Send Transaction: Wallet not connected!`);
       return;
     }
@@ -51,18 +51,18 @@ export const SendTransaction: FC = () => {
 
       await connection.confirmTransaction(signature, "confirmed");
 
-      notify({
-        type: "success",
-        message: "Transaction successful!",
-        txid: signature,
-      });
+      // notify({
+      //   type: "success",
+      //   message: "Transaction successful!",
+      //   txid: signature,
+      // });
     } catch (error: any) {
-      notify({
-        type: "error",
-        message: `Transaction failed!`,
-        description: error?.message,
-        txid: signature,
-      });
+      // notify({
+      //   type: "error",
+      //   message: `Transaction failed!`,
+      //   description: error?.message,
+      //   txid: signature,
+      // });
       console.log("error", `Transaction failed! ${error?.message}`, signature);
       return;
     }

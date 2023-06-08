@@ -1,7 +1,7 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL, TransactionSignature } from "@solana/web3.js";
 import { FC, useCallback } from "react";
-import { notify } from "../utils/notifications";
+// import { notify } from "../utils/notifications";
 import useUserSOLBalanceStore from "../stores/useUserSOLBalanceStore";
 import { Box } from "@mui/material";
 import { StyledButton } from "./StyledButton";
@@ -16,11 +16,11 @@ export const RequestAirdrop: FC = () => {
   const onClick = useCallback(async () => {
     if (!publicKey) {
       console.log("error", "Wallet not connected!");
-      notify({
-        type: "error",
-        message: "error",
-        description: "Wallet not connected!",
-      });
+      // notify({
+      //   type: "error",
+      //   message: "error",
+      //   description: "Wallet not connected!",
+      // });
       return;
     }
 
@@ -33,19 +33,19 @@ export const RequestAirdrop: FC = () => {
       );
       console.log(await connection);
       await connection.confirmTransaction(signature, "confirmed");
-      notify({
-        type: "success",
-        message: "Airdrop successful!",
-        txid: signature,
-      });
+      // notify({
+      //   type: "success",
+      //   message: "Airdrop successful!",
+      //   txid: signature,
+      // });
       getUserSOLBalance(publicKey, connection);
     } catch (error: any) {
-      notify({
-        type: "error",
-        message: `Airdrop failed!`,
-        description: error?.message,
-        txid: signature,
-      });
+      // notify({
+      //   type: "error",
+      //   message: `Airdrop failed!`,
+      //   description: error?.message,
+      //   txid: signature,
+      // });
       console.log("error", `Airdrop failed! ${error?.message}`, signature);
     }
   }, [publicKey, connection, getUserSOLBalance]);

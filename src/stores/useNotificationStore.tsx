@@ -8,12 +8,12 @@ interface NotificationStore {
     description?: string;
     txid?: string;
   }>;
-  set: (x: any) => void;
+  // set: (x: any) => void;
 }
 
 const useNotificationStore = create<NotificationStore>((set, _get) => ({
   notifications: [],
-  set: (fn) => set(produce(fn)),
+  // set: (fn) => set(produce(fn)),
 }));
 
 export default useNotificationStore;
