@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { SendTransaction } from "../../components/SendTransaction";
+import { SendTransaction } from "../../components/buttons/SendTransaction";
 
 export const BasicsView: FC = ({}) => {
   return (

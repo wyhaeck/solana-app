@@ -1,4 +1,4 @@
-import useNotificationStore from "../stores/useNotificationStore";
+import useNotificationStore from "../stores/useBasicsStore";
 
 // export function notify(newNotification: {
 //   type?: string

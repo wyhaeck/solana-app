@@ -4,6 +4,7 @@ import { AppProps } from "next/dist/shared/lib/router/router";
 import WalletContextProvider from "../contexts/WalletContextProvider";
 //  import NotificationList from "../components/Notification";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 require("@solana/wallet-adapter-react-ui/styles.css");
 require("../styles/globals.css");
@@ -14,12 +15,20 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
       <Head>
         <title>Solana Transfer</title>
       </Head>
-
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <WalletContextProvider>
         <div className="flex flex-col h-screen">
-          {/* <NotificationList /> */}
-          <ToastContainer />
-          {/* <AppBar /> */}
           <Component {...pageProps} />
         </div>
       </WalletContextProvider>
