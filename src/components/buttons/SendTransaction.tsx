@@ -10,54 +10,18 @@ import { Box } from "@mui/material";
 import { StyledButton } from "../styled/StyledButton";
 import { StyledTextField } from "../styled/StyledTextField";
 import useTransactionStore from "../../stores/useTransactionStore";
-import useUserSOLBalanceStore from "../../stores/useUserSOLBalanceStore";
 import useBasicsStore from "../../stores/useBasicsStore";
 import { isBase58 } from "../../utils/utils";
 import LoadingSpinner from "../loading/LoadingSpinner";
 import { Notification } from "../Notification";
-import { TransactionType } from "../../types/TransactionType";
+import { sendTransactionToAPI } from "../api/apiUtils";
 import moment from "moment";
-
-function sendTransactionToAPI(transaction: TransactionType) {
-  const transactionData = async () => {
-    const data = {
-      id: transaction.id,
-      type: transaction.type,
-      timestamp: transaction.timestamp,
-      from_acc: transaction.from_acc,
-      to_acc: transaction.to_acc,
-      amount: transaction.amount,
-    };
-
-    const response = await fetch("/api/database", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-    return response.json();
-  };
-  transactionData();
-}
-
-// const sendTransactionToDatabase = async (
-//   request: NextApiRequest,
-//   response: NextApiResponse,
-//   transaction: TransactionType
-// ) => {
-//   const client = await db.connect();
-
-//   try {
-//     await client.sql`INSERT INTO transactions (id, type, timestamp, from_acc, to_acc, amount) VALUES (${transaction.id}, ${transaction.type}, ${transaction.timestamp}, ${transaction.from_acc}, ${transaction.to_acc}, ${transaction.amount});`;
-//   } catch (error) {
-//     return response.status(500).json({ error });
-//   }
-// };
 
 export const SendTransaction: FC = () => {
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
   const { address, sol, setTransactionAddress, setTransactionSol } =
     useTransactionStore((state) => state);
-  const { balance } = useUserSOLBalanceStore((state) => state);
   const { loading, setLoading } = useBasicsStore((state) => state);
 
   const onClick = useCallback(async () => {

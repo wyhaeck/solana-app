@@ -2,19 +2,16 @@ import { create } from "zustand";
 
 interface BasicsStore {
   loading: boolean;
-  notifications: Array<{
-    type: string;
-    message: string;
-    description?: string;
-    txid?: string;
-  }>;
+  homeView: boolean;
   setLoading: (x: boolean) => void;
+  setView: (x: boolean) => void;
 }
 
 const useBasicsStore = create<BasicsStore>((set, _get) => ({
   loading: false,
-  notifications: [],
+  homeView: true,
   setLoading: (bool) => set(() => ({ loading: bool })),
+  setView: (bool) => set(() => ({ homeView: bool })),
 }));
 
 export default useBasicsStore;
