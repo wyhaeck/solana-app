@@ -28,14 +28,14 @@ export const TransactionsView: FC = ({}) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [rows, setRows] = useState([]);
-  const [selectedRow, setSelectedRow] = useState(rows[0] ?? "");
+  const [rows, setRows] = useState<any[]>([]);
+  const [selectedRow, setSelectedRow] = useState(rows[0] ?? {});
   const onRowClick = useCallback(
     async (row: any) => {
       setSelectedRow(row);
       setOpen(true);
     },
-    [selectedRow, setSelectedRow]
+    [setSelectedRow]
   );
 
   useEffect(() => {
@@ -120,7 +120,7 @@ export const TransactionsView: FC = ({}) => {
                         alignItems="center"
                       >
                         <Box width="65%" pb={3}>
-                          Transaction ID: {selectedRow.id}
+                          Transaction ID: {selectedRow?.id}
                         </Box>
                         <Box width="65%" pb={3}>
                           Type: {selectedRow.type}
