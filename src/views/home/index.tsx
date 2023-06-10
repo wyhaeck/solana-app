@@ -19,89 +19,59 @@ export const HomeView: FC = ({}) => {
   const { balance, getUserSOLBalance } = useUserSOLBalanceStore(
     (state) => state
   );
+
   // const getUserSOLBalance = useUserSOLBalanceStore.getState().getUserSOLBalance;
 
   useEffect(() => {
     if (wallet.publicKey) {
-      console.log(wallet.publicKey.toBase58());
       getUserSOLBalance(wallet.publicKey, connection);
     }
   }, [wallet.publicKey, connection, getUserSOLBalance]);
 
   return (
-    <Box
-      minHeight="100vh"
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-    >
+    <>
+      <Box p={2}>
+        <WalletMultiButtonDynamic />
+      </Box>
       <Box
-        width="60%"
-        height="100%"
         display="flex"
         flexDirection="column"
-        justifyContent="center"
         alignItems="center"
-        className="filledBox"
-        pb={2}
+        width="100%"
       >
-        <Box
-          width="80%"
-          height="50%"
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          className="filledBox"
-        >
-          <h1 className="gradient">Solana Transfer App</h1>
-          <Box p={2}>
-            <WalletMultiButtonDynamic />
-          </Box>
+        <RequestAirdrop />
+        {wallet.publicKey && (
           <Box
+            p={2}
             display="flex"
             flexDirection="column"
             alignItems="center"
             width="100%"
           >
-            <RequestAirdrop />
-            {wallet.publicKey && (
-              <Box
-                p={2}
-                display="flex"
-                flexDirection="column"
-                alignItems="center"
-                width="100%"
-              >
-                <Box>
-                  <h3>Your Public Key:</h3>
-                </Box>
-                <StyledTextField
-                  defaultValue={wallet.publicKey.toBase58()}
-                  fullWidth
-                  sx={{
-                    "& input": {
-                      textAlign: "center",
-                    },
-                  }}
-                  InputProps={{
-                    readOnly: true,
-                    style: {
-                      borderRadius: "8px",
-                      textAlign: "center",
-                    },
-                  }}
-                />
-              </Box>
-            )}
-            {wallet && (
-              <h3>Your SOL Balance: {(balance || 0).toLocaleString()}</h3>
-            )}
-            <SendTransaction />
+            <Box>
+              <h3>Your Public Key:</h3>
+            </Box>
+            <StyledTextField
+              defaultValue={wallet.publicKey.toBase58()}
+              fullWidth
+              sx={{
+                "& input": {
+                  textAlign: "center",
+                },
+              }}
+              InputProps={{
+                readOnly: true,
+                style: {
+                  borderRadius: "8px",
+                  textAlign: "center",
+                },
+              }}
+            />
           </Box>
-        </Box>
+        )}
+        {wallet && <h3>Your SOL Balance: {(balance || 0).toLocaleString()}</h3>}
+        <SendTransaction />
       </Box>
-    </Box>
+    </>
   );
 };
