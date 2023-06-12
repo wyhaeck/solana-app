@@ -38,40 +38,46 @@ export const HomeView: FC = () => {
         alignItems="center"
         width="100%"
       >
-        <RequestAirdrop />
-        {wallet.publicKey && address === wallet.publicKey.toBase58() ? (
-          <Box
-            p={2}
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            width="100%"
-          >
-            <Box>
-              <h3>Your Public Key:</h3>
-            </Box>
-            <StyledTextField
-              defaultValue={address}
-              fullWidth
-              sx={{
-                "& input": {
-                  textAlign: "center",
-                },
-              }}
-              InputProps={{
-                readOnly: true,
-                style: {
-                  borderRadius: "8px",
-                  textAlign: "center",
-                },
-              }}
-            />
-          </Box>
-        ) : (
-          <LoadingSpinner />
+        {wallet.publicKey && (
+          <>
+            <RequestAirdrop />
+            {address === wallet?.publicKey?.toBase58() ? (
+              <Box
+                p={2}
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                width="100%"
+              >
+                <Box>
+                  <h3>Your Public Key:</h3>
+                </Box>
+                <StyledTextField
+                  defaultValue={address}
+                  fullWidth
+                  sx={{
+                    "& input": {
+                      textAlign: "center",
+                    },
+                  }}
+                  InputProps={{
+                    readOnly: true,
+                    style: {
+                      borderRadius: "8px",
+                      textAlign: "center",
+                    },
+                  }}
+                />
+              </Box>
+            ) : (
+              <LoadingSpinner />
+            )}
+            {wallet && (
+              <h3>Your SOL Balance: {(balance || 0).toLocaleString()}</h3>
+            )}
+            <SendTransaction />
+          </>
         )}
-        {wallet && <h3>Your SOL Balance: {(balance || 0).toLocaleString()}</h3>}
-        <SendTransaction />
       </Box>
     </>
   );
