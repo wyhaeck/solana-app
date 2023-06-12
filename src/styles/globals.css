@@ -28,11 +28,18 @@ a {
   -webkit-text-fill-color: transparent;
   -moz-background-clip: text;
   -moz-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .filledBox {
   /* background-color: #6e53e6; */
   background-image: linear-gradient(45deg, #8776d4, #6e53e6);
+  border-radius: 25px;
+}
+
+.result {
+  background-color: #512da8;
+  /* background-image: linear-gradient(45deg, #8776d4, #6e53e6); */
   border-radius: 25px;
 }
 

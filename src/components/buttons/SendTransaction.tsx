@@ -16,6 +16,18 @@ import LoadingSpinner from "../loading/LoadingSpinner";
 import { Notification } from "../Notification";
 import { sendTransactionToAPI } from "../api/apiUtils";
 import moment from "moment";
+const algoliasearch = require("algoliasearch");
+
+export const sendTransactionToAlgolia = (transaction: any) => {
+  const client = algoliasearch(
+    "BEOT1RHMQ5",
+    "a78f6da3e2ab758194039dc9231ac327"
+  );
+  const index = client.initIndex("solana_transactions");
+  index.saveObject(transaction, {
+    autoGenerateObjectIDIfNotExist: true,
+  });
+};
 
 export const SendTransaction: FC = () => {
   const { connection } = useConnection();
@@ -80,13 +92,23 @@ export const SendTransaction: FC = () => {
         to_acc: address,
         amount: amount,
       });
+      sendTransactionToAlgolia({
+        id: signature,
+        type: "Spl-Transfer",
+        time: moment().format("YYYY-MM-DD HH:mm:ss"),
+        from: publicKey.toBase58(),
+        to: address,
+        amount: amount,
+      });
       setLoading(false);
-
-      // notification
     } catch (error: any) {
       // notification
-
-      console.log("error", `Transaction failed! ${error?.message}`, signature);
+      Notification(
+        `Error: Transaction failed! ${error?.message}`,
+        true,
+        false,
+        signature
+      );
       setLoading(false);
       return;
     }

@@ -1,6 +1,5 @@
 import { db } from "@vercel/postgres";
 import { NextApiRequest, NextApiResponse } from "next";
-import { useWallet } from "@solana/wallet-adapter-react";
 
 export default async function handler(
   request: NextApiRequest,
@@ -19,10 +18,13 @@ export default async function handler(
       }
       return;
     case "GET":
+      const SQL = String(request.query["wallet"]);
       try {
-        const transactions = await client.sql`SELECT * FROM transactions;`;
+        const transactions =
+          await client.sql`SELECT * FROM transactions WHERE from_acc=${SQL};`;
         return response.status(200).json({ transactions });
       } catch (error) {
+        console.log(error);
         return response.status(500).json({ error });
       }
   }
