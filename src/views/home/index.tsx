@@ -6,6 +6,7 @@ import { RequestAirdrop } from "../../components/buttons/RequestAirdrop";
 import { SendTransaction } from "../../components/buttons/SendTransaction";
 import { StyledTextField } from "../../components/styled/StyledTextField";
 import useUserSOLBalanceStore from "../../stores/useUserSOLBalanceStore";
+import LoadingSpinner from "../../components/loading/LoadingSpinner";
 
 const WalletMultiButtonDynamic = dynamic(
   async () =>
@@ -13,20 +14,18 @@ const WalletMultiButtonDynamic = dynamic(
   { ssr: false }
 );
 
-export const HomeView: FC = ({}) => {
+export const HomeView: FC = () => {
   const wallet = useWallet();
   const { connection } = useConnection();
-  const { balance, getUserSOLBalance } = useUserSOLBalanceStore(
-    (state) => state
-  );
-
-  // const getUserSOLBalance = useUserSOLBalanceStore.getState().getUserSOLBalance;
+  const { address, balance, getUserSOLBalance, setAddress } =
+    useUserSOLBalanceStore((state) => state);
 
   useEffect(() => {
     if (wallet.publicKey) {
+      setAddress(wallet.publicKey.toBase58());
       getUserSOLBalance(wallet.publicKey, connection);
     }
-  }, [wallet.publicKey, connection, getUserSOLBalance]);
+  }, [address, wallet.publicKey, connection, getUserSOLBalance, setAddress]);
 
   return (
     <>
@@ -39,38 +38,46 @@ export const HomeView: FC = ({}) => {
         alignItems="center"
         width="100%"
       >
-        <RequestAirdrop />
         {wallet.publicKey && (
-          <Box
-            p={2}
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            width="100%"
-          >
-            <Box>
-              <h3>Your Public Key:</h3>
-            </Box>
-            <StyledTextField
-              defaultValue={wallet.publicKey.toBase58()}
-              fullWidth
-              sx={{
-                "& input": {
-                  textAlign: "center",
-                },
-              }}
-              InputProps={{
-                readOnly: true,
-                style: {
-                  borderRadius: "8px",
-                  textAlign: "center",
-                },
-              }}
-            />
-          </Box>
+          <>
+            <RequestAirdrop />
+            {address === wallet?.publicKey?.toBase58() ? (
+              <Box
+                p={2}
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                width="100%"
+              >
+                <Box>
+                  <h3>Your Public Key:</h3>
+                </Box>
+                <StyledTextField
+                  defaultValue={address}
+                  fullWidth
+                  sx={{
+                    "& input": {
+                      textAlign: "center",
+                    },
+                  }}
+                  InputProps={{
+                    readOnly: true,
+                    style: {
+                      borderRadius: "8px",
+                      textAlign: "center",
+                    },
+                  }}
+                />
+              </Box>
+            ) : (
+              <LoadingSpinner />
+            )}
+            {wallet && (
+              <h3>Your SOL Balance: {(balance || 0).toLocaleString()}</h3>
+            )}
+            <SendTransaction />
+          </>
         )}
-        {wallet && <h3>Your SOL Balance: {(balance || 0).toLocaleString()}</h3>}
-        <SendTransaction />
       </Box>
     </>
   );

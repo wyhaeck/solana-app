@@ -1,7 +1,6 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL, TransactionSignature } from "@solana/web3.js";
 import { FC, useCallback } from "react";
-// import { notify } from "../utils/notifications";
 import useUserSOLBalanceStore from "../../stores/useUserSOLBalanceStore";
 import { Box } from "@mui/material";
 import { StyledButton } from "../styled/StyledButton";
@@ -35,7 +34,6 @@ export const RequestAirdrop: FC = () => {
         publicKey,
         1 * LAMPORTS_PER_SOL
       );
-      console.log(await connection);
       await connection.confirmTransaction(signature, "confirmed");
       toast.success(`Transaction done! ${signature}`, {
         autoClose: 5000,

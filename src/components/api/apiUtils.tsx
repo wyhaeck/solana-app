@@ -20,9 +20,9 @@ export function sendTransactionToAPI(transaction: TransactionType) {
   transactionData();
 }
 
-export async function getTransactionsFromAPI() {
+export default async function getTransactionsFromAPI(address: string) {
   const transactionData = async () => {
-    const response = await fetch("/api/database", {
+    const response = await fetch(`/api/database?wallet=${address}`, {
       method: "GET",
     });
     return response.json();
