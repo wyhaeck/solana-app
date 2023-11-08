@@ -43,7 +43,6 @@ export const HomeView: FC = () => {
             <RequestAirdrop />
             {address === wallet?.publicKey?.toBase58() ? (
               <Box
-                p={2}
                 display="flex"
                 flexDirection="column"
                 alignItems="center"

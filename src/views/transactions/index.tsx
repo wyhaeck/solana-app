@@ -83,7 +83,7 @@ function CustomHits(props: any) {
   const { hits } = useHits(props);
   const { publicKey } = useWallet();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(4);
   const [modalOpen, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const [selectedRow, setSelectedRow] = useState({
@@ -125,7 +125,7 @@ function CustomHits(props: any) {
 
   return (
     <>
-      <TableContainer component={Paper} sx={{ maxWidth: 900, maxHeight: 700 }}>
+      <TableContainer component={Paper} sx={{ maxWidth: 900, maxHeight: 450 }}>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -246,7 +246,7 @@ function CustomHits(props: any) {
           <TableFooter>
             <TableRow>
               <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                rowsPerPageOptions={[4, 8, 20, { label: "All", value: -1 }]}
                 colSpan={3}
                 count={rows.length}
                 rowsPerPage={rowsPerPage}
@@ -345,7 +345,9 @@ export const TransactionsView: FC = () => {
           searchClient={searchClient}
           indexName="solana_transactions"
         >
-          <SearchBox />
+          <Box pb={1}>
+            <SearchBox />
+          </Box>
           <Box p={1}>
             <EmptyQueryBoundary fallback={null}>
               <CustomHits />
