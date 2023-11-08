@@ -24,30 +24,27 @@ const Home: NextPage = (props) => {
         <meta name="description" content="Solana Scaffold" />
       </Head>
       <Box
-        minHeight="100vh"
+        height="100vh"
         display="flex"
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
       >
         <Box
+          height="95vh"
           width="60%"
-          height="100%"
           display="flex"
           flexDirection="column"
-          justifyContent="center"
           alignItems="center"
           className="filledBox"
           pb={2}
         >
           <Box
             width="80%"
-            height="50%"
             display="flex"
             flexDirection="column"
-            justifyContent="center"
             alignItems="center"
-            className="filledBox"
+            borderRadius="25px"
           >
             <Box
               display="flex"

@@ -134,7 +134,7 @@ export const SendTransaction: FC = () => {
           alignItems="center"
           width="100%"
         >
-          <Box p={2} pb={1} width="100%">
+          <Box pb={1} width="100%">
             <StyledTextField
               InputProps={{
                 style: {
